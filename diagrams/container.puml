@@ -1,0 +1,32 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(user, "User", "Users of the home automation system", $sprite="users")
+Person(admin, "Admin", "Administrators managing the system", $sprite="users")
+
+Container_Boundary(homeAutomationSystem, "Home Automation System") {
+    Container(deviceService, "Device Management Service", "Golang", "Manages devices and their states")
+    Container(telemetryService, "Telemetry Management Service", "Golang", "Collects and stores telemetry data")
+    Container(deviceDb, "PostgreSQL", "Database", "Stores device data", $sprite="postgresql")
+    Container(telemetryDb, "PostgreSQL", "Database", "Stores telemetry records", $sprite="postgresql")
+    Container(kafka, "Kafka", "Message Broker", "Handles asynchronous communication between services")
+    Container(apiGateway, "API Gateway", "Kong", "Routes API requests to appropriate services")
+}
+
+System_Ext(sensor, "Sensors", "Provides temperature and other telemetry data")
+System_Ext(thirdPartyService, "Third-Party Device Services", "Controls external devices like lights, cameras, and other smart devices")
+
+Rel(user, apiGateway, "Uses", "HTTPS")
+Rel(admin, apiGateway, "Manages", "HTTPS")
+Rel(apiGateway, deviceService, "Routes requests", "HTTPS")
+Rel(apiGateway, telemetryService, "Routes requests", "HTTPS")
+Rel(deviceService, deviceDb, "Stores/retrieves device data")
+Rel(telemetryService, telemetryDb, "Stores telemetry records")
+Rel(telemetryService, kafka, "Publishes telemetry data", "Kafka")
+Rel(kafka, deviceService, "Processes telemetry updates", "Kafka")
+Rel(sensor, telemetryService, "Sends telemetry data", "HTTPS")
+Rel(deviceService, thirdPartyService, "Integrates with third-party devices")
+
+@enduml
