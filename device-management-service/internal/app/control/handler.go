@@ -19,6 +19,18 @@ func NewDeviceControlHandler(r *gin.RouterGroup, uc UseCase) {
 	r.GET("/state", h.GetDeviceState)
 }
 
+// TurnOnDevice godoc
+// @Summary turn on device endpoint
+// @Schemes
+// @Description Turns on a device
+// @Tags example
+// @Accept json
+// @Produce json
+// @Param requestBody body TurnOnDeviceRequest true "Turn on device"
+// @Param Authorization header string true "Bearer"
+// @Success 200 {string} ok
+// @Failure 400 {string} string "Bad Request"
+// @Failure 500 {string} string "Internal Server Error"
 func (h *Handler) TurnOnDevice(c *gin.Context) {
 
 }

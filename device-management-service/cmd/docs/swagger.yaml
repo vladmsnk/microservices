@@ -1,0 +1,183 @@
+definitions:
+  device.DeleteDeviceRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  device.GetDeviceInfoRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  device.ListUserDevicesRequest:
+    properties:
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  device.RegisterDeviceRequest:
+    properties:
+      device_description:
+        type: string
+      device_name:
+        type: string
+      device_type:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /delete:
+    post:
+      consumes:
+      - application/json
+      description: delete device
+      parameters:
+      - description: Delete device
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/device.DeleteDeviceRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: delete device endpoint
+      tags:
+      - example
+  /info:
+    post:
+      consumes:
+      - application/json
+      description: get device info
+      parameters:
+      - description: Get device info
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/device.GetDeviceInfoRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: get device info endpoint
+      tags:
+      - example
+  /list:
+    post:
+      consumes:
+      - application/json
+      description: Lists all devices for the authenticated user
+      parameters:
+      - description: List user devices
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/device.ListUserDevicesRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: list user devices endpoint
+      tags:
+      - example
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new device in the system
+      parameters:
+      - description: Register device
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/device.RegisterDeviceRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: register device endpoint
+      tags:
+      - example
+swagger: "2.0"

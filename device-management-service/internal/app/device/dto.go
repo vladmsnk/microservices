@@ -25,3 +25,14 @@ type GetDeviceInfoResponse struct {
 	DeviceDescription string `json:"device_description"`
 	DeviceType        string `json:"device_type"`
 }
+
+type ListUserDevicesRequest struct {
+	HomeName string `json:"home_name"`
+	Username string `json:"username"`
+}
+
+type DeleteDeviceRequest struct {
+	DeviceName string `json:"device_name"`
+	HomeName   string `json:"home_name"`
+	Username   string `json:"username"`
+}
