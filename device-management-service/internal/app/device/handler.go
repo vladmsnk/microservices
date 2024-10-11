@@ -37,7 +37,7 @@ func NewDeviceHandler(r *gin.RouterGroup, uc UseCase) {
 // @Success 200 {string} ok
 // @Failure 400 {string} string "Bad Request"
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /register [post]
+// @Router /device/register [post]
 func (h *Handler) RegisterDevice(c *gin.Context) {
 	var req RegisterDeviceRequest
 	err := c.ShouldBindBodyWithJSON(&req)
@@ -67,7 +67,7 @@ func (h *Handler) RegisterDevice(c *gin.Context) {
 // @Success 200 {string} ok
 // @Failure 400 {string} string "Bad Request"
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /info [post]
+// @Router /device/info [post]
 func (h *Handler) GetDeviceInfo(c *gin.Context) {
 	// Get device name from request
 
@@ -90,7 +90,7 @@ func (h *Handler) GetDeviceInfo(c *gin.Context) {
 // @Success 200 {string} ok
 // @Failure 400 {string} string "Bad Request"
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /list [post]
+// @Router /device/list [post]
 func (h *Handler) ListUserDevices(c *gin.Context) {
 	//todo: implement list user devices
 }
@@ -107,7 +107,7 @@ func (h *Handler) ListUserDevices(c *gin.Context) {
 // @Success 200 {string} ok
 // @Failure 400 {string} string "Bad Request"
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /delete [post]
+// @Router /device/delete [post]
 func (h *Handler) DeleteDevice(c *gin.Context) {
 	//todo: implement delete device
 }

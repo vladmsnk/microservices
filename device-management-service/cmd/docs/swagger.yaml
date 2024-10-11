@@ -1,4 +1,55 @@
 definitions:
+  control.GetDeviceStateRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  control.GetDeviceStatusRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  control.SendCommandToDeviceRequest:
+    properties:
+      attributes:
+        additionalProperties:
+          type: string
+        type: object
+      command:
+        type: string
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  control.TurnOffDeviceRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  control.TurnOnDeviceRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
   device.DeleteDeviceRequest:
     properties:
       device_name:
@@ -40,7 +91,182 @@ definitions:
 info:
   contact: {}
 paths:
-  /delete:
+  /control/command:
+    post:
+      consumes:
+      - application/json
+      description: sends command to device
+      parameters:
+      - description: Sends command to device
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/control.SendCommandToDeviceRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: sends command to device
+      tags:
+      - example
+  /control/state:
+    post:
+      consumes:
+      - application/json
+      description: gets device state
+      parameters:
+      - description: Gets device state
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/control.GetDeviceStateRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: gets device state
+      tags:
+      - example
+  /control/status:
+    get:
+      consumes:
+      - application/json
+      description: Gets device status
+      parameters:
+      - description: Gets device status
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/control.GetDeviceStatusRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: gets device status
+      tags:
+      - example
+  /control/turn_off:
+    post:
+      consumes:
+      - application/json
+      description: Turns off a device
+      parameters:
+      - description: Turn off device
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/control.TurnOffDeviceRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: turn off device endpoint
+      tags:
+      - example
+  /control/turn_on:
+    post:
+      consumes:
+      - application/json
+      description: Turns on a device
+      parameters:
+      - description: Turn on device
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/control.TurnOnDeviceRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: turn on device endpoint
+      tags:
+      - example
+  /device/delete:
     post:
       consumes:
       - application/json
@@ -75,7 +301,7 @@ paths:
       summary: delete device endpoint
       tags:
       - example
-  /info:
+  /device/info:
     post:
       consumes:
       - application/json
@@ -110,7 +336,7 @@ paths:
       summary: get device info endpoint
       tags:
       - example
-  /list:
+  /device/list:
     post:
       consumes:
       - application/json
@@ -145,7 +371,7 @@ paths:
       summary: list user devices endpoint
       tags:
       - example
-  /register:
+  /device/register:
     post:
       consumes:
       - application/json

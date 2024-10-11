@@ -1,0 +1,42 @@
+definitions:
+  telemetry.GetLastTelemetryRequest:
+    type: object
+info:
+  contact: {}
+paths:
+  /telemetry:
+    post:
+      consumes:
+      - application/json
+      description: get last telemetry for device
+      parameters:
+      - description: Gets last telemetry request
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/telemetry.GetLastTelemetryRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Gets last telemetry for device
+      tags:
+      - example
+swagger: "2.0"
