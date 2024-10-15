@@ -1,0 +1,59 @@
+@startuml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+
+entity User {
+    + id: int
+    --
+    username: String
+    email: String
+    password_hash: String
+    created_at: DateTime
+    updated_at: DateTime
+}
+
+entity Home {
+    + id: int
+    --
+    name: String
+    description: String
+    address: String
+    user_id: int
+    created_at: DateTime
+    updated_at: DateTime
+}
+
+entity Device {
+    + id: int
+    --
+    name: String
+    description: String
+    attributes: jsonb
+    home_id: int
+    status: String [on, off]
+    device_type_id: int
+    created_at: DateTime
+    updated_at: DateTime
+}
+
+entity DeviceType {
+    + id: int
+    --
+    name: String
+    description: String
+}
+
+entity TelemetryRecord {
+    + id: int
+    --
+    data: jsonb
+    device_name: String
+    created_at: DateTime
+}
+
+
+User ||--o{ Home : "owns"
+Home ||--o{ Device : "contains"
+Device ||--o{ TelemetryRecord : "generates"
+DeviceType ||--o{ Device : "categorizes"
+
+@enduml

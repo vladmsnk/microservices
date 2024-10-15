@@ -1,0 +1,42 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(user, "User", "Users of the Home Automation System", $sprite="users")
+
+Container_Boundary(thirdPartySystem, "Third-Party Device Services") {
+    Container_Ext(thirdPartyService, "Third-Party Device Services", "Golang", "Provides interface to communicate with devices")
+}
+
+Container_Boundary(deviceManagementSystem, "Device Management System") {
+    Container(deviceService, "Device Management Service", "Golang", "Manages devices and their states")
+    Container(deviceDb, "PostgreSQL", "Database", "Stores device data")
+}
+
+Container_Boundary(telemetrySystem, "telemetry System") {
+    Container(telemetryService, "Telemetry Management Service", "Golang", "Collects and stores telemetry data")
+    Container(telemetryDb, "TimescaleDB", "Database", "Stores telemetry records")
+}
+
+Container(apiGateway, "API Gateway", "Kong", "Routes API requests to services")
+Container(ui, "UI", "React", "User interface")
+Container(kafka, "Kafka", "Message Broker", "Handles asynchronous communication between services")
+
+
+Rel(deviceService, deviceDb, "Stores/retrieves device data")
+Rel(telemetryService, telemetryDb, "Stores/retrieves telemetry records")
+
+Rel(apiGateway, deviceService, "Routes device requests", "HTTPS")
+Rel(apiGateway, telemetryService, "Routes telemetry requests", "HTTPS")
+
+Rel(deviceService, telemetryService, "Gets device telemetry data", "HTTPS")
+
+Rel(user, ui, "Uses", "HTTPS")
+Rel(ui, apiGateway, "Routes requests", "HTTPS")
+
+Rel(deviceManagementSystem, thirdPartyService, "Communicates with devices", "HTTPS")
+
+Rel(thirdPartyService, kafka, "Publishes telemetry data")
+Rel(kafka, telemetryService, "Consumes telemetry data")
+@enduml

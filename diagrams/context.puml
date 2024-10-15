@@ -1,0 +1,18 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/java.puml
+!include FONTAWESOME/users.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(user, "Residents", "", $sprite="users")
+System(service, "Home Automation System", "Manages different devices", $sprite="java")
+System_Ext(home, Devices, "Sends commands to devices")
+
+
+Rel(user, service, "Uses", "https")
+Rel(service, home, "Controls", "https")
+@enduml

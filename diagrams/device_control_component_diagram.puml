@@ -1,0 +1,30 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+Container_Boundary(deviceService, "Device Management Service") {
+    Component(api, "Device API", "Golang REST API", "Handles HTTP requests for device control, registration, and state management")
+    Component(deviceRegistrationService, "DeviceRegistrationService", "Service", "Handles registration and deletion of devices")
+    Component(deviceControlService, "DeviceControlService", "Service", "Handles device on/off and state updates")
+    Component(deviceRegulationService, "DeviceRegulationService", "Service", "Automatically adjusts device state to meet target state")
+    Component(deviceRepository, "DeviceRepository", "Golang Interface", "Provides access to registered devices")
+    Component(deviceConnector, "DeviceConnector", "Golang Interface", "Handles communication with physical devices")
+
+    Component(userInfoService, "UserInfoService", "Service", "Provides user information for device registration")
+    Component(userRepository, "UserRepository", "Golang Interface", "Provides access to user information")
+}
+
+Rel(api, deviceRegistrationService, "Registers/Deletes devices")
+Rel(api, deviceControlService, "Sends commands for device on/off")
+Rel(api, deviceRegulationService, "Triggers state regulation based on user input")
+Rel(deviceRegistrationService, deviceRepository, "Stores/gets devices")
+Rel(deviceControlService, deviceRepository, "Gets devices to send commands to")
+Rel(deviceControlService, deviceConnector, "Sends on/off commands to devices")
+Rel(deviceRegulationService, deviceRepository, "Gets device states")
+Rel(deviceRegulationService, deviceConnector, "Rules devices to meet target state")
+Rel(userInfoService, userRepository, "Gets user information")
+Rel(deviceRegistrationService, userInfoService, "Gets user information for registration")
+
+@enduml
+

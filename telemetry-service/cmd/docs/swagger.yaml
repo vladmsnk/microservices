@@ -1,0 +1,71 @@
+definitions:
+  telemetry.ListTelemetryRequest:
+    properties:
+      end_date:
+        type: string
+      start_date:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /last_telemetry/{device_name}:
+    get:
+      consumes:
+      - application/json
+      description: get last telemetry for device
+      parameters:
+      - description: Device name
+        in: path
+        name: device_name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Gets last telemetry for device
+      tags:
+      - example
+  /telemetry/{device_name}:
+    get:
+      consumes:
+      - application/json
+      description: list telemetry for device
+      parameters:
+      - description: List telemetry request
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/telemetry.ListTelemetryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: List telemetry for device
+      tags:
+      - example
+swagger: "2.0"

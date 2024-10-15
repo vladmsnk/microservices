@@ -1,0 +1,489 @@
+definitions:
+  control.GetDeviceStateRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  control.GetDeviceStatusRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  control.SendCommandToDeviceRequest:
+    properties:
+      attributes:
+        additionalProperties:
+          type: string
+        type: object
+      command:
+        type: string
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  control.TurnOffDeviceRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  control.TurnOnDeviceRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  device.DeleteDeviceRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  device.GetDeviceInfoRequest:
+    properties:
+      device_name:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  device.ListUserDevicesRequest:
+    properties:
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  device.RegisterDeviceRequest:
+    properties:
+      device_description:
+        type: string
+      device_name:
+        type: string
+      device_type:
+        type: string
+      home_name:
+        type: string
+      username:
+        type: string
+    type: object
+  user.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  user.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /control/command:
+    post:
+      consumes:
+      - application/json
+      description: sends command to device
+      parameters:
+      - description: Sends command to device
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/control.SendCommandToDeviceRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: sends command to device
+      tags:
+      - example
+  /control/state:
+    post:
+      consumes:
+      - application/json
+      description: gets device state
+      parameters:
+      - description: Gets device state
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/control.GetDeviceStateRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: gets device state
+      tags:
+      - example
+  /control/status:
+    get:
+      consumes:
+      - application/json
+      description: Gets device status
+      parameters:
+      - description: Gets device status
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/control.GetDeviceStatusRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: gets device status
+      tags:
+      - example
+  /control/turn_off:
+    post:
+      consumes:
+      - application/json
+      description: Turns off a device
+      parameters:
+      - description: Turn off device
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/control.TurnOffDeviceRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: turn off device endpoint
+      tags:
+      - example
+  /control/turn_on:
+    post:
+      consumes:
+      - application/json
+      description: Turns on a device
+      parameters:
+      - description: Turn on device
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/control.TurnOnDeviceRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: turn on device endpoint
+      tags:
+      - example
+  /device/delete:
+    post:
+      consumes:
+      - application/json
+      description: delete device
+      parameters:
+      - description: Delete device
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/device.DeleteDeviceRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: delete device endpoint
+      tags:
+      - example
+  /device/info:
+    post:
+      consumes:
+      - application/json
+      description: get device info
+      parameters:
+      - description: Get device info
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/device.GetDeviceInfoRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: get device info endpoint
+      tags:
+      - example
+  /device/list:
+    post:
+      consumes:
+      - application/json
+      description: Lists all devices for the authenticated user
+      parameters:
+      - description: List user devices
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/device.ListUserDevicesRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: list user devices endpoint
+      tags:
+      - example
+  /device/register:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new device in the system
+      parameters:
+      - description: Register device
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/device.RegisterDeviceRequest'
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: register device endpoint
+      tags:
+      - example
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Login user
+      parameters:
+      - description: Login user
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/user.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Login endpoint
+      tags:
+      - example
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: Register user
+      parameters:
+      - description: Register user
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/user.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Register endpoint
+      tags:
+      - example
+swagger: "2.0"
