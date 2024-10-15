@@ -4,22 +4,15 @@
 !define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
 !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
 !include DEVICONS/java.puml
-!include DEVICONS/postgresql.puml
 !include FONTAWESOME/users.puml
 
 LAYOUT_WITH_LEGEND()
 
 Person(user, "Residents", "", $sprite="users")
-Person(admin, "Admins", "", $sprite="users")
-System(service, "Heating system", "Controls heating systems", $sprite="java")
-SystemDb(db, "PostgreSQL", "Stores all data", $sprite="postgresql")
-System_Ext(sensor, Sensors, "Provides temperature data")
-System_Ext(home, Devices, "Provides heating control")
+System(service, "Home Automation System", "Manages different devices", $sprite="java")
+System_Ext(home, Devices, "Sends commands to devices")
 
 
 Rel(user, service, "Uses", "https")
-Rel(admin, service, "Manages", "https")
-Rel(sensor, service, "Provides data to", "https")
 Rel(service, home, "Controls", "https")
-Rel(service, db, "Reads from and writes to", "JDBC")
 @enduml

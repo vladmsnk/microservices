@@ -88,6 +88,22 @@ definitions:
       username:
         type: string
     type: object
+  user.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  user.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -404,6 +420,70 @@ paths:
           schema:
             type: string
       summary: register device endpoint
+      tags:
+      - example
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Login user
+      parameters:
+      - description: Login user
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/user.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Login endpoint
+      tags:
+      - example
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: Register user
+      parameters:
+      - description: Register user
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/user.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Register endpoint
       tags:
       - example
 swagger: "2.0"

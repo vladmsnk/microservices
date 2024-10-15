@@ -10,6 +10,9 @@ Container_Boundary(deviceService, "Device Management Service") {
     Component(deviceRegulationService, "DeviceRegulationService", "Service", "Automatically adjusts device state to meet target state")
     Component(deviceRepository, "DeviceRepository", "Golang Interface", "Provides access to registered devices")
     Component(deviceConnector, "DeviceConnector", "Golang Interface", "Handles communication with physical devices")
+
+    Component(userInfoService, "UserInfoService", "Service", "Provides user information for device registration")
+    Component(userRepository, "UserRepository", "Golang Interface", "Provides access to user information")
 }
 
 Rel(api, deviceRegistrationService, "Registers/Deletes devices")
@@ -20,6 +23,8 @@ Rel(deviceControlService, deviceRepository, "Gets devices to send commands to")
 Rel(deviceControlService, deviceConnector, "Sends on/off commands to devices")
 Rel(deviceRegulationService, deviceRepository, "Gets device states")
 Rel(deviceRegulationService, deviceConnector, "Rules devices to meet target state")
+Rel(userInfoService, userRepository, "Gets user information")
+Rel(deviceRegistrationService, userInfoService, "Gets user information for registration")
 
 @enduml
 

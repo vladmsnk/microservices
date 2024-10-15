@@ -1,6 +1,5 @@
 @startuml
 !define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
-!include DEVICONS/postgresql.puml
 
 entity User {
     + id: int
@@ -8,7 +7,6 @@ entity User {
     username: String
     email: String
     password_hash: String
-    role: String [admin, user]
     created_at: DateTime
     updated_at: DateTime
 }
@@ -44,44 +42,18 @@ entity DeviceType {
     description: String
 }
 
-entity Sensor {
-    + id: int
-    --
-    device_name: String
-    name: String
-    telemetry_type_id: int
-    created_at: DateTime
-}
-
-entity TelemetryType {
-    + id: int
-    --
-    name: String [temperature, brightness, doorStatus, gateStatus]
-    description: String
-}
-
 entity TelemetryRecord {
     + id: int
     --
     data: jsonb
-    sensor_id: int
+    device_name: String
     created_at: DateTime
 }
 
-entity TelemetryViewRecord {
-    + id: int
-    --
-    sensor_id: int
-    attributes: jsonb
-    created_at: DateTime
-}
 
 User ||--o{ Home : "owns"
 Home ||--o{ Device : "contains"
-Device ||--o{ Sensor : "monitors"
-Sensor ||--o| TelemetryType : "uses"
-Sensor ||--o{ TelemetryRecord : "generates"
-Sensor ||--o{ TelemetryViewRecord : "creates"
+Device ||--o{ TelemetryRecord : "generates"
 DeviceType ||--o{ Device : "categorizes"
 
 @enduml

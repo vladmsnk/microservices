@@ -7,13 +7,12 @@ Container_Boundary(telemetryService, "Telemetry Management Service") {
     Component(api, "Telemetry API", "Golang REST API", "Handles HTTP requests for collecting and viewing telemetry data")
     Component(telemetryCollectionService, "TelemetryCollectionService", "Service", "Processes telemetry data from devices and stores it")
     Component(telemetryDisplayService, "TelemetryDisplayService", "Service", "Provides telemetry data for users to view")
-    Component(telemetryRepository, "TelemetryRepository", "Golang Interface", "Stores raw telemetry data")
-    Component(telemetryViewRepository, "TelemetryViewRepository", "Golang Interface", "Provides pre-processed telemetry views for users")
+    Component(telemetryRepository, "TelemetryRepository", "Golang Interface", "Stores/gets telemetry data")
 }
 
 Rel(api, telemetryCollectionService, "Receives telemetry data from devices")
 Rel(api, telemetryDisplayService, "Requests telemetry data for users")
-Rel(telemetryCollectionService, telemetryRepository, "Stores raw telemetry records")
-Rel(telemetryDisplayService, telemetryViewRepository, "Retrieves pre-processed telemetry views")
+Rel(telemetryCollectionService, telemetryRepository, "Stores telemetry records")
+Rel(telemetryDisplayService, telemetryRepository, "Retrieves pre-processed telemetry records")
 
 @enduml

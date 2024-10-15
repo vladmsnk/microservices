@@ -15,8 +15,8 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/telemetry": {
-            "post": {
+        "/last_telemetry/{device_name}": {
+            "get": {
                 "description": "get last telemetry for device",
                 "consumes": [
                     "application/json"
@@ -30,20 +30,57 @@ const docTemplate = `{
                 "summary": "Gets last telemetry for device",
                 "parameters": [
                     {
-                        "description": "Gets last telemetry request",
+                        "type": "string",
+                        "description": "Device name",
+                        "name": "device_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/telemetry/{device_name}": {
+            "get": {
+                "description": "list telemetry for device",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "example"
+                ],
+                "summary": "List telemetry for device",
+                "parameters": [
+                    {
+                        "description": "List telemetry request",
                         "name": "requestBody",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/telemetry.GetLastTelemetryRequest"
+                            "$ref": "#/definitions/telemetry.ListTelemetryRequest"
                         }
-                    },
-                    {
-                        "type": "string",
-                        "description": "Bearer",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -70,8 +107,16 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "telemetry.GetLastTelemetryRequest": {
-            "type": "object"
+        "telemetry.ListTelemetryRequest": {
+            "type": "object",
+            "properties": {
+                "end_date": {
+                    "type": "string"
+                },
+                "start_date": {
+                    "type": "string"
+                }
+            }
         }
     }
 }`

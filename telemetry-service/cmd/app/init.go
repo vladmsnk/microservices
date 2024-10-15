@@ -9,6 +9,6 @@ import (
 func setUpRouter(r *gin.Engine) {
 	docs.SwaggerInfo.BasePath = "/api/v1"
 
-	telemetryHandlers := r.Group("/api/v1/")
-	telemetry.NewDeviceControlHandler(telemetryHandlers, nil)
+	telemetryHandlers := r.Group("/api/v1/telemetry")
+	telemetry.NewTelemetryHandler(telemetryHandlers, nil)
 }

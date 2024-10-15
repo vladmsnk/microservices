@@ -1,6 +1,6 @@
 package telemetry
 
-type GetLastTelemetryRequest struct {
-	deviceName string
-	homeName   string
+type ListTelemetryRequest struct {
+	StartDate string `json:"start_date"`
+	EndDate   string `json:"end_date"`
 }
